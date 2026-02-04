@@ -9,10 +9,10 @@ La organización del proyecto es la siguiente:
 |   |   |   |   |-- proyecto
 |   |   |   |   |   |-- App 
 |   |   |   |   |   |   |--\Main
-|   |   |   |   |   |-- Controlador
+|   |   |   |   |   |-- Controller
 |   |   |   |   |   |   |--\Estado_Del_Pedido
 |   |   |   |   |   |   |--\Descuento
-|   |   |   |   |   |-- Modelo
+|   |   |   |   |   |-- Model
 |   |   |   |   |   |   |--\Pedido
 |
 |-- .gitignore
