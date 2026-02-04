@@ -1,5 +1,8 @@
 package es.iess.dam.proyecto.Controller;
 
-enum Descuentos {
-    
+public enum Descuentos {
+    NO_DESCUENTO,
+    DESCUENTO_10,
+    DESCUENTO_20,
+    DESCUENTO_30;
 }
