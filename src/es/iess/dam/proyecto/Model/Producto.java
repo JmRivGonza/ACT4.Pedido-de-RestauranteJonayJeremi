@@ -2,30 +2,30 @@ package es.iess.dam.proyecto.Model;
 import java.time.LocalDate;
 import es.iess.dam.proyecto.Controller.*;
 
-public class Pedido {
+public class Producto {
   //Datos estaticos y de identificación.
-  private static int idcontador = 0;
-  private int idPedido;
-
-  //Datos del pedido.
-  private String nombreCliente;
-  private LocalDate fechaCreacion;
-  private Estado_Del_Pedido estado;
-  private Descuentos descuento;
-  private Tipo_Alimento tipo;
+  
+  private String nombreProducto;
+  private String descripcion;
+  private String ingredientes;
+  private double precio;
+  private int cantidad;
   private double calificacion;
 
   //Datos de los articulos.
   private Articulo[] listaArticulos;
   private int numArticulosActual;
 
-  public Pedido(String nombreCliente, Estado_Del_Pedido estado, Descuentos descuento) {
+  public Pedido(String nombreProducto, String descripcion, String ingredientes, double precio, int cantidad, double calificacion) {
         idcontador++;
         this.idPedido = idcontador;
 
-        setNombreCliente(nombreCliente);
-        setEstado(estado);
-        setDescuento(descuento);
+        setNombreProducto(nombreProducto);
+        setDescripcion(descripcion);
+        setIngredientes(ingredientes);
+        setPrecio(precio);
+        setCantidad(cantidad);
+        setCalificacion(calificacion);
         this.fechaCreacion = LocalDate.now();
 
         //Inicializamos el array de articulos.
@@ -34,27 +34,39 @@ public class Pedido {
   }
 
   //Getters y Setters.
-  public void setNombreCliente(String nombreCliente) {
-    if (nombreCliente != null && !nombreCliente.isEmpty()) {
-      this.nombreCliente = nombreCliente;
+  public void setNombreProducto(String nombreProducto) {
+    if (nombreProducto != null && !nombreProducto.isEmpty()) {
+      this.nombreProducto = nombreProducto;
     }
   }
 
-  public void setEstado(Estado_Del_Pedido estado) {
-    if (estado != null) {
-      this.estado = estado;
+  public void setDescripcion(String descripcion) {
+    if (descripcion != null && !descripcion.isEmpty()) {
+      this.descripcion = descripcion;
     }
   }
 
-  public void setDescuento(Descuentos descuento) {
-    if (descuento != null) {
-      this.descuento = descuento;
+  public void setIngredientes(String ingredientes) {
+    if (ingredientes != null && !ingredientes.isEmpty()) {
+      this.ingredientes = ingredientes;
     }
   }
 
-  public void setTipo(Tipo_Alimento tipo) {
-    if (tipo != null) {
-      this.tipo = tipo;
+  public void setPrecio(double precio) {
+    if (precio > 0) {
+      this.precio = precio;
+    }
+  }
+
+  public void setCantidad(int cantidad) {
+    if (cantidad > 0) {
+      this.cantidad = cantidad;
+    }
+  }
+
+  public void setCalificacion(double calificacion) {
+    if (calificacion >= 0 && calificacion <= 10) {
+      this.calificacion = calificacion;
     }
   }
 
@@ -83,11 +95,12 @@ public class Pedido {
     System.out.println("\n.          --- TICKET ---");
     System.out.println("============================================");
 
-    System.out.println("Pedido: " + this.nombreCliente + "ID: " + this.idPedido);
+    System.out.println("Pedido: " + this.nombreProducto + "ID: " + this.idPedido);
+    System.out.println("Descripcion: " + this.descripcion);
+    System.out.println("Ingredientes: " + this.ingredientes);
     System.out.println("Precio: " + this.precio);
-    System.out.println("Descuento: " + this.descuento);
+    System.out.println("Cantidad: " + this.cantidad);
     System.out.println("Calificacion: " + this.calificacion);
-    System.out.println("Estado: " + this.estado);
     System.out.println("============================================");
     System.out.println("Total: " + this.calcularTotal());
     System.out.println("============================================");
