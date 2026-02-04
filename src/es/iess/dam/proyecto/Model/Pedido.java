@@ -121,8 +121,6 @@ public class Pedido {
     return descuento;
   }
 
-  public double calcularTotal() {
 
-  }
 
 }
