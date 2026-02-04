@@ -7,11 +7,16 @@ La organización del proyecto es la siguiente:
 |   |   |-- iess
 |   |   |   |-- dam
 |   |   |   |   |-- proyecto
-|   |   |   |   |   |-- modelo
-|   |   |   |   |   |   |-- //Class e informacion del pedido
-|   |   |   |   |   |-- vista
-|   |   |   |   |   |   |-- //Main (println)
-|   |   |   |   |   |-- control
-|   |   |   |   |   |   |-- //PrecioTotal, EstadoDelPedido,         ¿Descuentos?
+|   |   |   |   |   |-- App 
+|   |   |   |   |   |   |--\Main
+|   |   |   |   |   |-- Controlador
+|   |   |   |   |   |   |--\Estado_Del_Pedido
+|   |   |   |   |   |   |--\Descuento
+|   |   |   |   |   |-- Modelo
+|   |   |   |   |   |   |--\Pedido
+|
 |-- .gitignore
 |-- README.md
+
+
+Para observar la actividad, se debe ejecutar el Main.java
