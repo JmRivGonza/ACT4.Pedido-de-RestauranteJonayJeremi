@@ -2,6 +2,7 @@ package es.iess.dam.proyecto.Model;
 import java.time.LocalDate;
 import es.iess.dam.proyecto.Controller.*;
 
+
 public class Pedido {
   //Datos estaticos y de identificación.
   private static int idcontador = 0;
@@ -17,20 +18,19 @@ public class Pedido {
 
   //Datos de los articulos.
   private Articulo[] listaArticulos;
-  private int numArticulosActual;
+  private int numArticulos;
 
-  public Pedido(String nombreCliente, Estado_Del_Pedido estado, Descuentos descuento) {
+  public Pedido(String nombreCliente) {
         idcontador++;
         this.idPedido = idcontador;
-
-        setNombreCliente(nombreCliente);
-        setEstado(estado);
-        setDescuento(descuento);
+        this.nombreCliente = nombreCliente;
+        this.estado = Estado_Del_Pedido.EN_PREPARACION;
+        this.descuento = Descuentos.NO_DESCUENTO;
         this.fechaCreacion = LocalDate.now();
 
         //Inicializamos el array de articulos.
         this.listaArticulos = new Articulo[5];
-        this.numArticulosActual = 0;
+        this.numArticulos = 0;
   }
 
   //Getters y Setters.
@@ -58,38 +58,46 @@ public class Pedido {
     }
   }
 
-
- public double calcularTotal() {
-    double subtotal = 0;
-        for (int i = 0; i < numArticulosActual; i++) {
-            if (listaArticulos[i] != null) {
-                subtotal += listaArticulos[i].getPrecio(); 
-            }
+  public void añadirArticulo(Articulo art) {
+        if (numArticulos < 5) {
+            listaArticulos[numArticulos++] = art;
+        } else {
+            System.out.println("Error: El pedido #" + idPedido + " ya está completo (máx 5).");
         }
-        return subtotal;
-}
-  public void anadirArticulo(Articulo nuevoArticulo) {
-    if (nuevoArticulo != null && numArticulosActual < 5) {
-      listaArticulos[numArticulosActual] = nuevoArticulo;
-      numArticulosActual++;
-      System.out.println("Articulo añadido correctamente");
-    }else{
-      System.out.println("No se ha podido añadir el articulo");
     }
+
+  double calcularTotal() {
+        double total = 0;
+        for (int i = 0; i < numArticulosActual; i++) {
+            total += listaArticulos[i].getSubtotal();
+        }
+        return total;
+    }
+
+
+    void cambiarEstado(Estado_Del_Pedido nuevoEstado) {
+    if (estado == Estado_Del_Pedido.EN_PREPARACION && nuevoEstado == Estado_Del_Pedido.LISTO_PARA_ENTREGAR) {
+      return;
+    }
+    estado = nuevoEstado;
   }
+
 
   public void resumenPedido(){
     System.out.println("============================================");
     System.out.println("\n.          --- TICKET ---");
     System.out.println("============================================");
-
-    System.out.println("Pedido: " + this.nombreCliente + "ID: " + this.idPedido);
-    System.out.println("Precio: " + this.precio);
-    System.out.println("Descuento: " + this.descuento);
-    System.out.println("Calificacion: " + this.calificacion);
-    System.out.println("Estado: " + this.estado);
+    System.out.println("RESUMEN DEL PEDIDO ID: " + idPedido);
+    System.out.println("Pedido: " + nombreCliente);
+    System.out.println("Estado: " + estado);
+    System.out.println("Articulos: ");
+    for (int i = 0; i < numArticulos; i++) {
+        System.out.println(" - " + listaArticulos[i].getNombre() + " " + listaArticulos[i].getSubtotal() + "€");
+    }
+    System.out.println("Fecha: " + fechaCreacion);
+    System.out.println("Descuento: " + descuento);
     System.out.println("============================================");
-    System.out.println("Total: " + this.calcularTotal());
+    System.out.println("Total a pagar: " + calcularTotal() + "€");
     System.out.println("============================================");
   }
 
