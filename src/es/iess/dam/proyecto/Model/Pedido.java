@@ -1,75 +1,42 @@
 package es.iess.dam.proyecto.Model;
-
+import java.time.LocalDate;
 import es.iess.dam.proyecto.Controller.*;
 
+
 public class Pedido {
-  private int id;
-  private String nombre;
-  private String Descripcion;
-  private String ingredientes;
-  private double precio;
-  private int cantidad;
-  private double calificacion;
+  //Datos estaticos y de identificación.
+  private static int idcontador = 0;
+  private int idPedido;
+
+  //Datos del pedido.
+  private String nombreCliente;
+  private LocalDate fechaCreacion;
   private Estado_Del_Pedido estado;
   private Descuentos descuento;
+  private Tipo_Alimento tipo;
+  private double calificacion;
 
-  public Pedido(int id, String nombre, String Descripcion, String ingredientes, double precio, int cantidad,
-      double calificacion, Estado_Del_Pedido estado, Descuentos descuento) {
-    this.id = id;
-    this.nombre = nombre;
-    this.Descripcion = Descripcion;
-    this.ingredientes = ingredientes;
-    this.precio = precio;
-    this.cantidad = cantidad;
-    this.calificacion = calificacion;
-    this.estado = estado;
-    this.descuento = descuento;
+  //Datos de los articulos.
+  private Articulo[] listaArticulos;
+  private int numArticulos;
+
+  public Pedido(String nombreCliente) {
+        idcontador++;
+        this.idPedido = idcontador;
+        this.nombreCliente = nombreCliente;
+        this.estado = Estado_Del_Pedido.EN_PREPARACION;
+        this.descuento = Descuentos.NO_DESCUENTO;
+        this.fechaCreacion = LocalDate.now();
+
+        //Inicializamos el array de articulos.
+        this.listaArticulos = new Articulo[5];
+        this.numArticulos = 0;
   }
 
-  public Pedido() {
-    this.nombre = "";
-    this.Descripcion = "No Disponible";
-    this.ingredientes = "No Disponible";
-    this.precio = 0.0;
-    this.cantidad = 0;
-    this.calificacion = 0.0;
-    this.estado = Estado_Del_Pedido.NO_DISPONIBLE;
-    this.descuento = Descuentos.NO_DESCUENTO;
-  }
-
-  public void setNombre(String nombre) {
-    if (nombre != null && !nombre.isEmpty()) {
-      this.nombre = nombre;
-    }
-  }
-
-  public void setDescripcion(String Descripcion) {
-    if (Descripcion != null) {
-      this.Descripcion = Descripcion;
-    }
-  }
-
-  public void setIngredientes(String ingredientes) {
-    if (ingredientes != null) {
-      this.ingredientes = ingredientes;
-    }
-  }
-
-  public void setPrecio(double precio) {
-    if (precio > 0) {
-      this.precio = precio;
-    }
-  }
-
-  public void setCantidad(int cantidad) {
-    if (cantidad > 0) {
-      this.cantidad = cantidad;
-    }
-  }
-
-  public void setCalificacion(double calificacion) {
-    if (calificacion >= 0.0 && calificacion <= 5.0) {
-      this.calificacion = calificacion;
+  //Getters y Setters.
+  public void setNombreCliente(String nombreCliente) {
+    if (nombreCliente != null && !nombreCliente.isEmpty()) {
+      this.nombreCliente = nombreCliente;
     }
   }
 
@@ -85,37 +52,55 @@ public class Pedido {
     }
   }
 
-  public int getId() {
-    return id;
+  public void setTipo(Tipo_Alimento tipo) {
+    if (tipo != null) {
+      this.tipo = tipo;
+    }
   }
 
-  public String getNombre() {
-    return nombre;
+  public void añadirArticulo(Articulo art) {
+        if (numArticulos < 5) {
+            listaArticulos[numArticulos++] = art;
+        } else {
+            System.out.println("Error: El pedido #" + idPedido + " ya está completo (máx 5).");
+        }
+    }
+
+  double calcularTotal() {
+        double total = 0;
+        for (int i = 0; i < numArticulosActual; i++) {
+            total += listaArticulos[i].getSubtotal();
+        }
+        return total;
+    }
+
+
+    void cambiarEstado(Estado_Del_Pedido nuevoEstado) {
+    if (estado == Estado_Del_Pedido.EN_PREPARACION && nuevoEstado == Estado_Del_Pedido.LISTO_PARA_ENTREGAR) {
+      return;
+    }
+    estado = nuevoEstado;
   }
 
-  public String getDescripcion() {
-    return Descripcion;
+
+  public void resumenPedido(){
+    System.out.println("============================================");
+    System.out.println("\n.          --- TICKET ---");
+    System.out.println("============================================");
+    System.out.println("RESUMEN DEL PEDIDO ID: " + idPedido);
+    System.out.println("Pedido: " + nombreCliente);
+    System.out.println("Estado: " + estado);
+    System.out.println("Articulos: ");
+    for (int i = 0; i < numArticulos; i++) {
+        System.out.println(" - " + listaArticulos[i].getNombre() + " " + listaArticulos[i].getSubtotal() + "€");
+    }
+    System.out.println("Fecha: " + fechaCreacion);
+    System.out.println("Descuento: " + descuento);
+    System.out.println("============================================");
+    System.out.println("Total a pagar: " + calcularTotal() + "€");
+    System.out.println("============================================");
   }
 
-  public String getIngredientes() {
-    return ingredientes;
-  }
-
-  public double getPrecio() {
-    return precio;
-  }
-
-  public int getCantidad() {
-    return cantidad;
-  }
-
-  public double getCalificacion() {
-    return calificacion;
-  }
-
-  public Estado_Del_Pedido getEstado() {
-    return estado;
-  }
 
   public Descuentos getDescuento() {
     return descuento;
