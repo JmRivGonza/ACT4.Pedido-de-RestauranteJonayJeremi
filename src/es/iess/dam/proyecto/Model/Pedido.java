@@ -50,12 +50,6 @@ public class Pedido {
     }
   }
 
-  public void setTipo(Tipo_Alimento tipo) {
-    if (tipo != null) {
-      this.tipo = tipo;
-    }
-  }
-
   public void añadirArticulo(Producto art) {
     if (numArticulos < 5) {
       listaArticulos[numArticulos++] = art;
@@ -96,9 +90,4 @@ public class Pedido {
     System.out.println("Total a pagar: " + calcularTotal() + "€");
     System.out.println("============================================");
   }
-
-  public Descuentos getDescuento() {
-    return descuento;
-  }
-
 }

@@ -6,6 +6,6 @@ import es.iess.dam.proyecto.Model.Pedido;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        
+
     }
 }
