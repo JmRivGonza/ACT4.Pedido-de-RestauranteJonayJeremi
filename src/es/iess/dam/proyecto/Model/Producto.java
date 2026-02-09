@@ -1,5 +1,4 @@
 package es.iess.dam.proyecto.Model;
-
 import es.iess.dam.proyecto.Controller.Tipo_Alimento;
 
 public class Producto {
@@ -16,7 +15,7 @@ public class Producto {
     }
 
     // Metodo toString para que se muestre el producto de forma legible.
-    public String MostrarDatosArticulo() {
+    public String toString() {
         return nombre + " (x" + cantidad + ") - " + precioUnidad + "€ [Total: " + getSubtotal() + "€]";
     }
 

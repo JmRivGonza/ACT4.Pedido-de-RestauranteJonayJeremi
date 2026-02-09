@@ -58,41 +58,39 @@ public class Pedido {
     }
   }
 
-  double calcularTotal() {
-    double total = 0;
+  public double calcularSubtotal() {
+    double subtotal = 0;
     for (int i = 0; i < numArticulos; i++) {
-      total += listaArticulos[i].getSubtotal();
+      subtotal += listaArticulos[i].getSubtotal();
     }
-    return total;
+    return subtotal;
+  }
+
+  public double calcularTotal() {
+    double subtotal = calcularSubtotal();
+    double porcentajeDescuento = descuento.getDescuento();
+    return subtotal * (1 - porcentajeDescuento);
   }
 
   public void cambiarEstado(Estado_Del_Pedido nuevoEstado) {
-    if (estado == Estado_Del_Pedido.EN_PREPARACION && nuevoEstado == Estado_Del_Pedido.LISTO_PARA_ENTREGAR) {
+    if (this.estado == Estado_Del_Pedido.ENTREGADO) {
+      System.out.println("Error: El pedido ya ha sido entregado y no se puede modificar.");
       return;
     }
-    estado = nuevoEstado;
+    if (nuevoEstado == null) {
+      System.out.println("Error: El nuevo estado no puede ser null.");
+      return;
+    }
 
-    // ULTIMO AÑADIDO
+    if (nuevoEstado.getNivel() < this.estado.getNivel()) {
+      System.out.println("Error: No se puede volver a un estado anterior ("
+          + this.estado + " -> " + nuevoEstado + ").");
+      return;
+    }
 
-    /*
-     * // Extra condicion estados: que no se pueda volver atras en los pedidos.
-     * if (nuevoEstado.getNivel() < this.estado.getNivel()) {
-     * System.out.println("Error: No se puede volver a un estado anterior ("
-     * + this.estado + " -> " + nuevoEstado + ").");
-     * return; // Salimos del método sin hacer el cambio
-     * }
-     * 
-     * this.estado = nuevoEstado;
-     * System.out.println("Estado actualizado a: " + this.estado);
-     * 
-     * // Extra condicion estados plus: que no se pueda modificar el pedido una vez
-     * entregado.
-     * if (this.estado == Estado_Del_Pedido.ENTREGADO) {
-     * System.out.
-     * println("Error: El pedido ya ha sido entregado y no se puede modificar.");
-     * return;
-     * }
-     */
+    this.estado = nuevoEstado;
+    System.out.println("Estado actualizado a: " + this.estado);
+
 
   }
 
@@ -105,12 +103,13 @@ public class Pedido {
     System.out.println("Estado: " + estado);
     System.out.println("Articulos: ");
     for (int i = 0; i < numArticulos; i++) {
-      System.out.println(" - " + listaArticulos[i]);
+      System.out.println(" - " + listaArticulos[i].toString());
     }
     System.out.println("Fecha: " + fechaCreacion);
-    System.out.println("Descuento: " + descuento);
     System.out.println("============================================");
-    System.out.println("Total a pagar: " + calcularTotal() + "€");
+    System.out.println("Subtotal: " + calcularSubtotal() + "€");
+    System.out.println("Descuento: " + descuento);
+    System.out.printf("Total: %.2f€\n", calcularTotal());
     System.out.println("============================================");
   }
 }
