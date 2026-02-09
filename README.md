@@ -1,7 +1,16 @@
 ## Actividad 4: Pedido de Restaurante
 Realizado por Jeremi Gonzalez y Jonay Rivero.
 
-La organización del proyecto es la siguiente:
+* **Ejecucion** Para poder acceder a la aplicacion, se debe ejecutar el Main.java ubicado en es.iess.dam.proyecto.App
+
+* **Gestión de Productos:** Creación de artículos con nombre, precio, tipo (Bebida, Comida, Postre) y cantidad.
+* **Control de Pedidos:** Generación automática de ID único por pedido.
+    * Lógica de estados dinámica (No disponible -> En preparación -> Listo -> Entregado).
+    * Restricción de flujo: No se puede retroceder de estado ni modificar un pedido entregado.
+* **Cálculo Automático:** Cálculo de subtotal, aplicación de descuentos (10%, 20%, 30%)
+* **Impresión de Ticket:** Resumen detallado de la compra por consola.
+
+* **Organizacion**
 |-- src
 |   |-- es
 |   |   |-- iess
@@ -17,6 +26,3 @@ La organización del proyecto es la siguiente:
 |
 |-- .gitignore
 |-- README.md
-
-
-Para observar la actividad, se debe ejecutar el Main.java
