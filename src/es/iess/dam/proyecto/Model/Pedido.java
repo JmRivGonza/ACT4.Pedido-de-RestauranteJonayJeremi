@@ -66,16 +66,39 @@ public class Pedido {
     return total;
   }
 
-  void cambiarEstado(Estado_Del_Pedido nuevoEstado) {
+  public void cambiarEstado(Estado_Del_Pedido nuevoEstado) {
     if (estado == Estado_Del_Pedido.EN_PREPARACION && nuevoEstado == Estado_Del_Pedido.LISTO_PARA_ENTREGAR) {
       return;
     }
     estado = nuevoEstado;
+
+    // ULTIMO AÑADIDO
+
+    /*
+     * // Extra condicion estados: que no se pueda volver atras en los pedidos.
+     * if (nuevoEstado.getNivel() < this.estado.getNivel()) {
+     * System.out.println("Error: No se puede volver a un estado anterior ("
+     * + this.estado + " -> " + nuevoEstado + ").");
+     * return; // Salimos del método sin hacer el cambio
+     * }
+     * 
+     * this.estado = nuevoEstado;
+     * System.out.println("Estado actualizado a: " + this.estado);
+     * 
+     * // Extra condicion estados plus: que no se pueda modificar el pedido una vez
+     * entregado.
+     * if (this.estado == Estado_Del_Pedido.ENTREGADO) {
+     * System.out.
+     * println("Error: El pedido ya ha sido entregado y no se puede modificar.");
+     * return;
+     * }
+     */
+
   }
 
   public void resumenPedido() {
     System.out.println("============================================");
-    System.out.println("\n.          --- TICKET ---");
+    System.out.println("\n           --- TICKET ---");
     System.out.println("============================================");
     System.out.println("RESUMEN DEL PEDIDO ID: " + idPedido);
     System.out.println("Pedido: " + nombreCliente);
