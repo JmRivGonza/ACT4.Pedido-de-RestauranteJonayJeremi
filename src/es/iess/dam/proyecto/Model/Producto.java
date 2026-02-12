@@ -1,4 +1,5 @@
 package es.iess.dam.proyecto.Model;
+
 import es.iess.dam.proyecto.Controller.Tipo_Alimento;
 
 public class Producto {
@@ -14,16 +15,16 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    // Metodo toString para que se muestre el producto de forma legible.
-    public String toString() {
-        return nombre + " (x" + cantidad + ") - " + precioUnidad + "€ [Total: " + getSubtotal() + "€]";
-    }
-
     /*
      * Calcula el precio total de este producto (precio * cantidad).
      */
     public double getSubtotal() {
         return this.precioUnidad * this.cantidad;
+    }
+
+    // Metodo toString para que se muestre el producto de forma legible.
+    public String detalleProducto() {
+        return nombre + " (x" + cantidad + ") - " + precioUnidad + "€ [Total: " + getSubtotal() + "€]";
     }
 
     // Getters

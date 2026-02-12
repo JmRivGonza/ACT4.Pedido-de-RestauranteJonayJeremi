@@ -32,18 +32,22 @@ public class Pedido {
   }
 
   // Getters y Setters.
+
+  // Asigna el nombre del cliente solo si no está vacío
   public void setNombreCliente(String nombreCliente) {
     if (nombreCliente != null && !nombreCliente.isEmpty()) {
       this.nombreCliente = nombreCliente;
     }
   }
 
+  // Actualiza el estado del pedido verificando que no sea nulo
   public void setEstado(Estado_Del_Pedido estado) {
     if (estado != null) {
       this.estado = estado;
     }
   }
 
+  // Aplica un descuento al pedido si el valor recibido es válido
   public void setDescuento(Descuentos descuento) {
     if (descuento != null) {
       this.descuento = descuento;
@@ -91,7 +95,6 @@ public class Pedido {
     this.estado = nuevoEstado;
     System.out.println("Estado actualizado a: " + this.estado);
 
-
   }
 
   public void resumenPedido() {
@@ -103,7 +106,7 @@ public class Pedido {
     System.out.println("Estado: " + estado);
     System.out.println("Articulos: ");
     for (int i = 0; i < numArticulos; i++) {
-      System.out.println(" - " + listaArticulos[i].toString());
+      System.out.println(" - " + listaArticulos[i].detalleProducto());
     }
     System.out.println("Fecha: " + fechaCreacion);
     System.out.println("============================================");

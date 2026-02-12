@@ -7,7 +7,7 @@ import es.iess.dam.proyecto.Model.Pedido;
 import es.iess.dam.proyecto.Model.Producto;
 
 public class Main {
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         Pedido pedido1 = new Pedido("Cliente Pruebas");
 
         System.out.println("--- Añadiendo artículos ---");
@@ -19,7 +19,7 @@ public class Main {
         Producto p3 = new Producto("Helado", 3.50, Tipo_Alimento.POSTRE, 11);
         // Cuarto producto
         Producto p4 = new Producto("Ternera", 15.00, Tipo_Alimento.COMIDA, 5);
-        // Quinto producto  
+        // Quinto producto
         Producto p5 = new Producto("Zumo", 2.50, Tipo_Alimento.BEBIDA, 7);
 
         pedido1.añadirArticulo(p);
@@ -45,7 +45,6 @@ public class Main {
         pedido1.cambiarEstado(Estado_Del_Pedido.ENTREGADO);
         pedido1.cambiarEstado(Estado_Del_Pedido.LISTO_PARA_ENTREGAR);
         pedido1.cambiarEstado(Estado_Del_Pedido.EN_PREPARACION);
-
 
         // Resumen final
         System.err.println("\n---SIN DESCUENTO---\n");
